@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "model_version": "PALF-HE-LR-270-2026-08",
+  "features": [
+    "INR",
+    "TC",
+    "TBIL",
+    "ALT",
+    "PHOS",
+    "CHE"
+  ],
+  "feature_labels": {
+    "INR": "International normalized ratio",
+    "TC": "Total cholesterol",
+    "TBIL": "Total bilirubin",
+    "ALT": "Alanine aminotransferase",
+    "PHOS": "Phosphorus",
+    "CHE": "Cholinesterase"
+  },
+  "units": {
+    "INR": "dimensionless",
+    "TC": "mmol/L",
+    "TBIL": "μmol/L",
+    "ALT": "U/L",
+    "PHOS": "mmol/L",
+    "CHE": "U/L"
+  },
+  "observed_ranges": {
+    "INR": {
+      "min": 0.85,
+      "max": 10.35,
+      "median": 1.38,
+      "missing_n": 0
+    },
+    "TC": {
+      "min": 0.25,
+      "max": 12.45,
+      "median": 3.085,
+      "missing_n": 6
+    },
+    "TBIL": {
+      "min": 1.3,
+      "max": 743.4,
+      "median": 20.55,
+      "missing_n": 5
+    },
+    "ALT": {
+      "min": 7.0,
+      "max": 18000.0,
+      "median": 162.0,
+      "missing_n": 3
+    },
+    "PHOS": {
+      "min": 0.14,
+      "max": 8.93,
+      "median": 1.53,
+      "missing_n": 64
+    },
+    "CHE": {
+      "min": 1096.0,
+      "max": 14208.0,
+      "median": 5223.0,
+      "missing_n": 5
+    }
+  },
+  "population": "Children admitted with acute hepatic dysfunction who fulfilled PALF criteria during the index hospitalization and had no HE at admission",
+  "predictor_time": "First available admission laboratory measurements",
+  "outcome": "New-onset hepatic encephalopathy during hospitalization",
+  "cohort": {
+    "n": 270,
+    "events": 43,
+    "event_rate": 0.15925925925925927
+  },
+  "internal_validation": {
+    "AUROC": 0.831,
+    "AUROC_95CI": [
+      0.752,
+      0.898
+    ],
+    "AUPRC": 0.56,
+    "AUPRC_95CI": [
+      0.406,
+      0.715
+    ],
+    "calibration_slope": 0.925
+  },
+  "model_specification": {
+    "algorithm": "Logistic regression",
+    "C": 0.1,
+    "class_weight": "balanced",
+    "solver": "liblinear",
+    "imputation": "IterativeImputer(max_iter=10, initial_strategy='median')",
+    "scaling": "StandardScaler",
+    "calibration": "Platt calibration fitted to five-fold out-of-fold raw probabilities before the final estimator was refitted to all 270 children"
+  },
+  "intended_use": "Research-only probability estimation. The model does not diagnose HE, recommend treatment, or replace clinical judgment. External validation is required before clinical implementation."
+}
